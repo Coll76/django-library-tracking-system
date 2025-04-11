@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -40,6 +40,7 @@ class Loan(models.Model):
     member = models.ForeignKey(Member, related_name='loans', on_delete=models.CASCADE)
     loan_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True, blank=True)
+    due_date = models.Datefield(timezone.now() + datetime.timedelta(days=14))
     is_returned = models.BooleanField(default=False)
 
     def __str__(self):
